@@ -1,45 +1,64 @@
+document.getElementById('error-message').style.display = 'none'
+//--toggleSpinner arrow function---------------------
+const toggleSpinner = displayStyle => {
+  document.getElementById('spinner').style.display = displayStyle;
+}
+//--toggleSearchResult arrow function--------------------
+const toggleSearchResult = displayStyle => {
+  document.getElementById('toggle-search').style.display = displayStyle;
+ }
+ //--phone-search fuction------------------------------
 const searchPhone = () => {
   const searchField = document.getElementById('search-field');
+  toggleSpinner('block');
+  toggleSearchResult('none');
   const searchText = searchField.value.toLowerCase();
   searchField.value = '';
   if(searchText === '') {
-    alert('please display write something');
+    alert('please, display write something');
+    toggleSpinner('none');
   }
   else{
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
   fetch (url)
   .then(res => res.json())
   .then(data =>displaySearchResult(data.data))
+  toggleSpinner('none')
   } 
 }
-
+//-- all-phone-display-function---------------------------
 const displaySearchResult = phones => {
   const searchResult = document.getElementById('search-result');
-  phones.forEach(phone => {
-    // console.log(phone)
-    const div = document.createElement('div');
-    div.classList.add('col');
-    div.innerHTML = `
-    <div class="card h-100 shadow-lg bg-body rounded">
-        <img class="p-5" src="${phone.image}" class="img-fluid card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title text-center">${phone.phone_name}</h5>
-          <h5 class="card-title text-center">${phone.brand}</h5>
-          <button class="col btn btn-warning" onclick="loadPhoneDetail('${phone.slug}')">Details</button>
+  searchResult.textContent = '';
+  if(!phones.length[0]){
+    document.getElementById('error-message').style.display = 'block'
+  }
+    phones.forEach(phone => {
+      const div = document.createElement('div');
+      div.classList.add('col');
+      div.innerHTML = `
+      <div class="card h-100 shadow-lg bg-body rounded">
+          <img class="p-5" src="${phone.image}" class="img-fluid card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title text-center">${phone.phone_name}</h5>
+            <h5 class="card-title text-center">${phone.brand}</h5>
+            <button class="col btn btn-warning" onclick="loadPhoneDetail('${phone.slug}')">Details</button>
+          </div>
         </div>
-      </div>
-    `;
-    searchResult.appendChild(div);
-  });
+      `;
+      searchResult.appendChild(div);
+     });
+  toggleSpinner('none');
+  toggleSearchResult('block')
 }
-
+// --id load function----------------------------------
 const loadPhoneDetail = id => {
   const url = `https://openapi.programming-hero.com/api/phone/${id}`
   fetch(url)
   .then(res => res.json())
   .then(data => displayPhoneDetail(data.data))
 }
-
+//-- display single phone------------------------------
 const displayPhoneDetail = phone => {
   console.log(phone)
   const phoneDetails = document.getElementById('phone-details');
