@@ -1,3 +1,4 @@
+//--error message through---------------------------
 document.getElementById('error-message').style.display = 'none'
 //--toggleSpinner arrow function---------------------
 const toggleSpinner = displayStyle => {
