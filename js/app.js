@@ -1,6 +1,6 @@
 const searchPhone = () => {
   const searchField = document.getElementById('search-field');
-  const searchText = searchField.value;
+  const searchText = searchField.value.toLowerCase();
   searchField.value = '';
   if(searchText === '') {
     alert('please display write something');
@@ -69,6 +69,25 @@ const displayPhoneDetail = phone => {
   `;
   phoneDetails.appendChild(div);
   }
+  else if(!phone.others){
+    const div = document.createElement('div');
+  div.classList.add('card');
+  div.innerHTML = `
+  <img class="img-fluid p-5" src="${phone.image}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">${phone.name}</h5>
+    <h5 class="card-title">${phone.releaseDate}</h5>
+    <div>
+    <h5 class="card-title">Product details ${phone.name}</h5>
+    <li>Chip: ${phone.mainFeatures.chipSet}</li>
+    <li>Display Size: ${phone.mainFeatures.displaySize}</li>
+    <li>Memory: ${phone.mainFeatures.memory}</li>
+    <li>Storage: ${phone.mainFeatures.storage}</li>
+    </div> 
+  </div>
+  `;
+  phoneDetails.appendChild(div);
+  }
   else{
     const div = document.createElement('div');
   div.classList.add('card');
@@ -89,7 +108,6 @@ const displayPhoneDetail = phone => {
     <li>Radio: ${phone.others.Radio}</li>
     <li>USB: ${phone.others.USB}</li>
     <li>WLAN: ${phone.others.WLAN}</li>
-  
     </div> 
   </div>
   `;
