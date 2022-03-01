@@ -1,4 +1,4 @@
-//--error message through---------------------------
+//--error message through-------------------------
 document.getElementById('error-message').style.display = 'none'
 //--toggleSpinner arrow function---------------------
 const toggleSpinner = displayStyle => {
@@ -23,7 +23,7 @@ const searchPhone = () => {
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
   fetch (url)
   .then(res => res.json())
-  .then(data =>displaySearchResult(data.data))
+  .then(data =>displaySearchResult(data.data.slice(0, 20)))
   toggleSpinner('none')
   } 
 }
@@ -32,7 +32,7 @@ const displaySearchResult = phones => {
   const searchResult = document.getElementById('search-result');
   searchResult.textContent = '';
   if(!phones.length[0]){
-    document.getElementById('error-message').style.display = 'block'
+    document.getElementById('error-message').style.display = 'block';
   }
     phones.forEach(phone => {
       const div = document.createElement('div');
@@ -47,6 +47,7 @@ const displaySearchResult = phones => {
           </div>
         </div>
       `;
+      document.getElementById('error-message').style.display = 'none';
       searchResult.appendChild(div);
      });
   toggleSpinner('none');
