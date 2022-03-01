@@ -7,7 +7,7 @@ const toggleSpinner = displayStyle => {
 const toggleSearchResult = displayStyle => {
   document.getElementById('toggle-search').style.display = displayStyle;
  }
- //--phone-search fuction------------------------------
+ //--phone-search function------------------------------
 const searchPhone = () => {
   const searchField = document.getElementById('search-field');
   toggleSpinner('block');
