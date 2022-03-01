@@ -60,7 +60,6 @@ const loadPhoneDetail = id => {
 }
 //-- display single phone------------------------------
 const displayPhoneDetail = phone => {
-  console.log(phone)
   const phoneDetails = document.getElementById('phone-details');
   phoneDetails.textContent = '';
   if(!phone.releaseDate){
